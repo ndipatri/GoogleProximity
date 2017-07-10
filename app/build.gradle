@@ -4,6 +4,21 @@ android {
     compileSdkVersion rootProject.ext.get("currentCompileSdkVersion")
     buildToolsVersion rootProject.ext.get("currentBuildToolsVersion")
 
+    signingConfigs {
+        release {
+            keyAlias 'mykey'
+            keyPassword 'android'
+            storeFile file(System.properties['user.home'] + '/.android/playstore.keystore')
+            storePassword 'android'
+        }
+        dev {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file(System.properties['user.home'] + '/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
     defaultConfig {
         applicationId "com.ndipatri.iot.googleproximity"
         minSdkVersion rootProject.ext.get("currentMinSdkVersion")
@@ -12,9 +27,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -22,9 +38,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile project(":lib-google-proximity")
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
 }
