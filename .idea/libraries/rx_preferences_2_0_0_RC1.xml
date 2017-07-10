@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="rx-preferences-2.0.0-RC1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/67da72752a868a6dee8c864587d6ef2d1d233315/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/67da72752a868a6dee8c864587d6ef2d1d233315/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.f2prateek.rx.preferences2/rx-preferences/2.0.0-RC1/13be801aa95ef3ced743db565e165ea0591fc9a/rx-preferences-2.0.0-RC1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
