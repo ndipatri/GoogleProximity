@@ -108,3 +108,7 @@ dependencies {
     compile 'com.android.support:support-core-utils:' + rootProject.currentSupportLibVersion;
     compile 'com.android.support:support-core-ui:' + rootProject.currentSupportLibVersion;
 }
+
+// Place it at the end of the file
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
