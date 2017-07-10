@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ndipatri.iot.googleproximity"
+        applicationId "com.ndipatri.iot.googleproximity.sample"
         minSdkVersion rootProject.ext.get("currentMinSdkVersion")
         targetSdkVersion rootProject.ext.get("currentTargetSdkVersion")
         versionCode 1
@@ -32,6 +32,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

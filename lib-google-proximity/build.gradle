@@ -19,6 +19,21 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'mykey'
+            keyPassword 'android'
+            storeFile file(System.properties['user.home'] + '/.android/playstore.keystore')
+            storePassword 'android'
+        }
+        dev {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file(System.properties['user.home'] + '/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
     compileSdkVersion rootProject.ext.get("currentCompileSdkVersion")
     buildToolsVersion rootProject.ext.get("currentBuildToolsVersion")
 
@@ -31,10 +46,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
