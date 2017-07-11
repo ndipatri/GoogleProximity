@@ -32,6 +32,13 @@ android {
 
     }
 
+    lintOptions {
+        quiet true
+        warningsAsErrors false
+        checkAllWarnings false
+        abortOnError false
+    }
+
     buildTypes {
         release {
             consumerProguardFiles 'proguard-rules.txt'
@@ -40,7 +47,7 @@ android {
 }
 
 ext {
-    bintrayRepo = 'maven'
+    bintrayRepo = 'GoogleProximity'
     bintrayName = 'GoogleProximity'   // Has to be same as your library module name
 
     publishedGroupId = 'com.ndipatri.iot'
