@@ -112,10 +112,6 @@
 #####
 
 
--keep class com.ndipatri.iot.roboButton.RBApplication { *; }
--keep class com.ndipatri.iot.roboButton.dagger.** { *; }
-
-
 #-keep class android.support.test.espresso.** { *; }
 #-keepclassmembers class android.support.test.espresso.** { public *; }
 
