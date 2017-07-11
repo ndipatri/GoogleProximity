@@ -95,7 +95,7 @@
 -keepclassmembers class org.joda.time.DateTime { public *; }
 
 # as per official recommendation: https://github.com/evant/gradle-retrolambda#proguard
--dontwarn java.lang.invoke.*
+-dontwarn java.lang.invoke**
 
 # Retrofit2 config
 -dontwarn retrofit2.**

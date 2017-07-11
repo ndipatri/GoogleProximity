@@ -4,10 +4,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-
-        // used to generate a POM file
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
 
         // Required plugins added to classpath to facilitate pushing to Jcenter/Bintray
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -44,10 +43,6 @@ subprojects {
                 dirs 'aars'
             }
             jcenter()
-        }
-
-        dependencies {
-            classpath 'me.tatarka:gradle-retrolambda:3.4.0'
         }
     }
 }
