@@ -39,6 +39,32 @@ android {
     }
 }
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'GoogleProximity'   // Has to be same as your library module name
+
+    publishedGroupId = 'com.ndipatri.iot'
+    libraryName = 'GoogleProximity'
+    artifact = 'lib-google-proximity'     // Has to be same as your library module name
+
+    libraryDescription = 'Android Library to configure Google Eddystone Beacons'
+
+    // Your github repo link
+    siteUrl = 'https://github.com/ndipatri/GoogleProximity'
+    gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
+    githubRepository= 'ndipatri/GoogleProximity'
+
+    libraryVersion = '1.0'
+
+    developerId = 'ndipatri'
+    developerName = 'Nicholas DiPatri'
+    developerEmail = 'ndipatri@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -83,4 +109,8 @@ dependencies {
     compile 'com.android.support:support-core-ui:' + rootProject.currentSupportLibVersion;
     compile 'com.android.support:support-media-compat:' + rootProject.currentSupportLibVersion;
     compile 'com.android.support:support-fragment:' + rootProject.currentSupportLibVersion;
+
+    // Place it at the end of the file
+    apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
 }
