@@ -53,6 +53,7 @@ android {
         quiet true
         warningsAsErrors false
         checkAllWarnings false
+        abortOnError false
     }
     sourceSets {
         test {
@@ -63,15 +64,7 @@ android {
             }
         }
     }
-    productFlavors {
-        live {}
 
-        // This is just a marker flavor so we know to enable overly-forgiving SSL
-        // trust-store for testing purposes.
-        liveWithSSLProxy {}
-
-        stubbedBluetooth{}
-    }
     buildTypes {
         release {
             minifyEnabled true
