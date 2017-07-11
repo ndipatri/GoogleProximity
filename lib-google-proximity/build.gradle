@@ -19,21 +19,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    signingConfigs {
-        release {
-            keyAlias 'mykey'
-            keyPassword 'android'
-            storeFile file(System.properties['user.home'] + '/.android/playstore.keystore')
-            storePassword 'android'
-        }
-        dev {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file(System.properties['user.home'] + '/.android/debug.keystore')
-            storePassword 'android'
-        }
-    }
-
     compileSdkVersion rootProject.ext.get("currentCompileSdkVersion")
     buildToolsVersion rootProject.ext.get("currentBuildToolsVersion")
 
@@ -46,56 +31,20 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-
-        debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.dev
         }
     }
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'GoogleProximity'   // Has to be same as your library module name
-
-    publishedGroupId = 'com.ndipatri.iot'
-    libraryName = 'GoogleProximity'
-    artifact = 'lib-google-proximity'     // Has to be same as your library module name
-
-    libraryDescription = 'Android Library to configure Google Eddystone Beacons'
-
-    // Your github repo link
-    siteUrl = 'https://github.com/ndipatri/GoogleProximity'
-    gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
-    githubRepository= 'ndipatri/GoogleProximity'
-
-    libraryVersion = '1.0'
-
-    developerId = 'ndipatri'
-    developerName = 'Nicholas DiPatri'
-    developerEmail = 'ndipatri@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
-
 dependencies {
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:' + rootProject.currentSupportLibVersion;
-    testCompile 'junit:junit:4.12'
 
     compile 'joda-time:joda-time:2.9.4'
 
@@ -114,10 +63,12 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0';
     compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
 
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
+    testCompile 'junit:junit:4.12'
 
     // Dagger dependencies
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"
@@ -130,8 +81,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + rootProject.currentSupportLibVersion;
     compile 'com.android.support:support-core-utils:' + rootProject.currentSupportLibVersion;
     compile 'com.android.support:support-core-ui:' + rootProject.currentSupportLibVersion;
+    compile 'com.android.support:support-media-compat:' + rootProject.currentSupportLibVersion;
+    compile 'com.android.support:support-fragment:' + rootProject.currentSupportLibVersion;
 }
-
-// Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
