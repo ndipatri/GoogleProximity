@@ -47,7 +47,7 @@ android {
 }
 
 ext {
-    bintrayRepo = 'GoogleProximity'
+    bintrayRepo = 'maven'
     bintrayName = 'GoogleProximity'   // Has to be same as your library module name
 
     publishedGroupId = 'com.ndipatri.iot'
@@ -61,7 +61,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.1'
+    libraryVersion = '1.0'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'
