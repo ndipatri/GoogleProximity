@@ -29,7 +29,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     private static final int REQUEST_PICK_ACCOUNT = 42;
     private static final int REQUEST_ERROR_RECOVER = 43;
 
-    //@InjectView(R.id.chooseGoogleAccountButton)
     SignInButton chooseGoogleAccountButton;
 
     @Inject
@@ -43,7 +42,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_authentiation);
 
-        //Views.inject(this);
         chooseGoogleAccountButton = (SignInButton) findViewById(R.id.chooseGoogleAccountButton);
 
         GoogleProximity.getInstance().getGraph().inject(this);

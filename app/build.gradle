@@ -128,7 +128,7 @@ dependencies {
 
     compile 'org.slf4j:slf4j-android:1.6.1-RC1'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.jakewharton:butterknife:1.4.0'
+
     //  need this for latest Nearby work...
     compile 'com.google.android.gms:play-services:10.2.1'
 
