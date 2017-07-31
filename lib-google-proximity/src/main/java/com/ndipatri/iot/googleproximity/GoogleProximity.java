@@ -67,7 +67,7 @@ public class GoogleProximity {
     public Completable updateBeacon(final byte[] advertiseId,
                                     final String[] attachment) {
         return beaconProximityHelper
-                .updateBeacon(advertiseId, attachment);
+                .createAttachment(advertiseId, attachment);
     }
 
     public void redirectToAuthenticationActivityIfNecessary(Context activity) {

@@ -120,8 +120,8 @@ public class BeaconProximityHelper {
     }
 
     // Please be sure the passed Beacon is a DTO (detached) not DAO (attached to Realm)
-    public Completable updateBeacon(final byte[] advertiseId,
-                                    final String[] attachment) {
+    public Completable createAttachment(final byte[] advertiseId,
+                                        final String[] attachment) {
 
         final Beacon apiBeacon = new Beacon(advertiseId);
 
