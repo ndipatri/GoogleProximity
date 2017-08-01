@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public class GoogleProximity {
 
@@ -72,5 +73,9 @@ public class GoogleProximity {
 
     public void redirectToAuthenticationActivityIfNecessary(Context activity) {
         beaconProximityHelper.redirectToAuthenticationActivityIfNecessary(activity);
+    }
+
+    public Single<String> getOAuthToken(final String selectedGoogleAccount) {
+        return beaconProximityHelper.getOAuthToken(selectedGoogleAccount);
     }
 }

@@ -13,11 +13,8 @@ import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
-import com.ndipatri.iot.googleproximity.BeaconProximityHelper;
 import com.ndipatri.iot.googleproximity.GoogleProximity;
 import com.ndipatri.iot.googleproximity.R;
-
-import javax.inject.Inject;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -31,9 +28,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     SignInButton chooseGoogleAccountButton;
 
-    @Inject
-    BeaconProximityHelper beaconProximityHelper;
-
     protected String selectedGoogleAccount;
 
     @Override
@@ -43,8 +37,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_authentiation);
 
         chooseGoogleAccountButton = (SignInButton) findViewById(R.id.chooseGoogleAccountButton);
-
-        GoogleProximity.getInstance().getGraph().inject(this);
 
         chooseGoogleAccountButton.setOnClickListener(v -> pickUserAccount());
     }
@@ -87,7 +79,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     protected void getFirstTokenForAccount() {
-        beaconProximityHelper.getOAuthToken(selectedGoogleAccount).subscribe(new SingleObserver<String>() {
+        GoogleProximity.getInstance().getOAuthToken(selectedGoogleAccount).subscribe(new SingleObserver<String>() {
             @Override
             public void onSubscribe(Disposable d) {
 
