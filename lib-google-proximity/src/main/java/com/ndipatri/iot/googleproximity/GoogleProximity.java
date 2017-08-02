@@ -8,11 +8,15 @@ import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import com.google.common.base.Strings;
 import com.ndipatri.iot.googleproximity.container.ObjectGraph;
+import com.ndipatri.iot.googleproximity.utils.BeaconScanHelper;
+
+import org.altbeacon.beacon.Beacon;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class GoogleProximity {
@@ -23,6 +27,9 @@ public class GoogleProximity {
 
     @Inject
     BeaconProximityHelper beaconProximityHelper;
+
+    @Inject
+    BeaconScanHelper beaconScanHelper;
 
     private static GoogleProximity instance = null;
 
@@ -61,8 +68,17 @@ public class GoogleProximity {
         return !Strings.isNullOrEmpty(getGoogleAccountForOAuth().get());
     }
 
+    public Maybe<String[]> retrieveAttachment(final Beacon beacon) {
+        return retrieveAttachment(beaconScanHelper.getAdvertiseId(beacon));
+    }
+
     public Maybe<String[]> retrieveAttachment(final byte[] advertiseId) {
         return beaconProximityHelper.retrieveAttachment(advertiseId);
+    }
+
+    public Completable updateBeacon(final Beacon beacon,
+                                    final String[] attachment) {
+        return updateBeacon(beaconScanHelper.getAdvertiseId(beacon), attachment);
     }
 
     public Completable updateBeacon(final byte[] advertiseId,
@@ -77,5 +93,13 @@ public class GoogleProximity {
 
     public Single<String> getOAuthToken(final String selectedGoogleAccount) {
         return beaconProximityHelper.getOAuthToken(selectedGoogleAccount);
+    }
+
+    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId) {
+        return beaconScanHelper.scanForNearbyBeacon(beaconNamespaceId);
+    }
+
+    public void stopBeaconScanning() {
+        beaconScanHelper.stopBeaconScanning();
     }
 }

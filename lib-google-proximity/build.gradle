@@ -11,6 +11,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
 final DAGGER_VERSION = '2.7';
+final ESPRESSO_VERSION = '2.2.2';
 
 android {
 
@@ -61,7 +62,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.5'
+    libraryVersion = '1.7'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'
@@ -98,6 +99,16 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
 
     testCompile 'junit:junit:4.12'
+
+    compile 'org.altbeacon:android-beacon-library:2.9.2'
+
+    compile ("com.android.support.test.espresso:espresso-idling-resource:${ESPRESSO_VERSION}") {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+    }
 
     // Dagger dependencies
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"

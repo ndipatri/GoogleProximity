@@ -3,7 +3,6 @@ package com.ndipatri.iot.googleproximity.container;
 import android.content.Context;
 
 import com.ndipatri.iot.googleproximity.GoogleProximity;
-import com.ndipatri.iot.googleproximity.activities.AuthenticationActivity;
 
 import javax.inject.Singleton;
 
@@ -13,7 +12,6 @@ import dagger.Component;
 @Component(modules = {GPModule.class})
 public interface ObjectGraph {
 
-    void inject(AuthenticationActivity thingy);
     void inject(GoogleProximity thingy);
 
     final class Initializer {

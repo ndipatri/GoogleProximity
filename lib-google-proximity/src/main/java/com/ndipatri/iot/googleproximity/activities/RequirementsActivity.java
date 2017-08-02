@@ -18,9 +18,6 @@ import com.ndipatri.iot.googleproximity.utils.BluetoothHelper;
 
 import io.reactivex.disposables.Disposable;
 
-/**
- * NJD TODO - MOVE TO LIBRARY
- */
 public class RequirementsActivity extends AppCompatActivity {
 
     private static final String TAG = RequirementsActivity.class.getSimpleName();

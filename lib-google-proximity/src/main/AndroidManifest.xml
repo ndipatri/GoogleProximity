@@ -2,6 +2,9 @@
 
     package="com.ndipatri.iot.googleproximity">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:theme="@style/AppTheme">
         android:allowBackup="true"
