@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -35,8 +36,6 @@ import io.reactivex.subjects.Subject;
 public class BeaconScanHelper {
 
     private static final String TAG = BeaconScanHelper.class.getSimpleName();
-
-    public static final int NEARBY_PANEL_SCAN_TIMEOUT_SECONDS = 10;
 
     private boolean isConnectedToBeaconService = false;
     private boolean isScanning = false;
@@ -62,9 +61,11 @@ public class BeaconScanHelper {
 
     // Beacon scanning starts upon subscription using 'scanForNearbyBeacon(), the client
     // is responsible for stopping scanning, however, using 'stopBeaconScanning()'
-
-    private Subject<Beacon> scanForRegionSubject;
     public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId) {
+        return scanForNearbyBeacon(beaconNamespaceId, -1);
+    }
+    private Subject<Beacon> scanForRegionSubject;
+    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
         Log.d(TAG, "Starting AltBeacon discovery...");
 
         scanForRegionSubject = PublishSubject.create();
@@ -86,12 +87,19 @@ public class BeaconScanHelper {
             updateIdlingResource();
         }
 
-        return scanForRegionSubject
-                .timeout(NEARBY_PANEL_SCAN_TIMEOUT_SECONDS, TimeUnit.SECONDS, observer -> {
-                    Log.d(TAG, "Timed out scanning for beacon.");
-                    observer.onComplete();
-                })
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        Observable<Beacon> observable = scanForRegionSubject.doOnError(throwable -> {
+            Log.e(TAG, "Exception while scanning for beacons. Forcing stop.", throwable);
+            stopBeaconScanning();
+        });
+
+        if (timeoutSeconds > 0) {
+            observable = observable.timeout(timeoutSeconds, TimeUnit.SECONDS, observer -> {
+                Log.d(TAG, "Timed out scanning for beacon.");
+                observer.onComplete();
+            });
+        }
+
+        return observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     public void stopBeaconScanning() {

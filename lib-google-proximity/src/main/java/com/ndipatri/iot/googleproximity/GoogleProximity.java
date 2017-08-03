@@ -99,6 +99,10 @@ public class GoogleProximity {
         return beaconScanHelper.scanForNearbyBeacon(beaconNamespaceId);
     }
 
+    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
+        return beaconScanHelper.scanForNearbyBeacon(beaconNamespaceId, timeoutSeconds);
+    }
+
     public void stopBeaconScanning() {
         beaconScanHelper.stopBeaconScanning();
     }
