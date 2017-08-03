@@ -95,7 +95,7 @@ public class BeaconScanHelper {
         if (timeoutSeconds > 0) {
             observable = observable.timeout(timeoutSeconds, TimeUnit.SECONDS, observer -> {
                 Log.d(TAG, "Timed out scanning for beacon.");
-                observer.onComplete();
+                scanForRegionSubject.onComplete();
             });
         }
 
