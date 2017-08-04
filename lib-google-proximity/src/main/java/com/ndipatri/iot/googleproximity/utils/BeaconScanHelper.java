@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -93,10 +92,12 @@ public class BeaconScanHelper {
         });
 
         if (timeoutSeconds > 0) {
-            observable = observable.timeout(timeoutSeconds, TimeUnit.SECONDS, observer -> {
-                Log.d(TAG, "Timed out scanning for beacon.");
-                scanForRegionSubject.onComplete();
-            });
+             observable = observable.timeout(timeoutSeconds, TimeUnit.SECONDS,
+                     Observable.create(subscriber -> {
+                        Log.d(TAG, "Timed out scanning for beacon.");
+                        subscriber.onComplete();
+                     })
+             );
         }
 
         return observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

@@ -38,6 +38,7 @@ android {
         applicationId "com.ndipatri.iot.googleproximity.sample"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        resValue("string", "beaconNamespaceId", beaconNamespaceId)
     }
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -94,7 +95,7 @@ dependencies {
     compile 'org.joda:joda-convert:1.7'
     compile 'com.squareup.okio:okio:1.4.0'
 
-    compile 'io.reactivex.rxjava2:rxjava:2.0.4'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
     compile('io.reactivex.rxjava2:rxandroid:2.0.1'){
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
     }

@@ -1,13 +1,15 @@
 package com.ndipatri.iot.googleproximity.sample;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 
 import com.ndipatri.iot.googleproximity.GoogleProximity;
 import com.ndipatri.iot.googleproximity.activities.RequirementsActivity;
 
-import io.reactivex.MaybeObserver;
+import org.altbeacon.beacon.Beacon;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends RequirementsActivity {
@@ -24,7 +26,32 @@ public class MainActivity extends RequirementsActivity {
     protected void onResume() {
         super.onResume();
 
-        GoogleProximity.getInstance().retrieveAttachment(new byte[] {}).subscribe(new MaybeObserver<String[]>() {
+        // NJD TODO - need to use this class to test the library and write tests.. duh!
+
+        scanForNearbyPanelEasy().subscribe(new Observer<Beacon>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d(TAG, "onSubscribe()");
+            }
+
+            @Override
+            public void onNext(Beacon beacon) {
+                Log.d(TAG, "onNext(): '" + beacon + "'");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError()", e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete()");
+            }
+        });
+
+        /**
+        GoogleProximity.getInstance().retrieveAttachment(new byte[]{}).subscribe(new MaybeObserver<String[]>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -45,5 +72,12 @@ public class MainActivity extends RequirementsActivity {
 
             }
         });
+         **/
+    }
+
+    public Observable<Beacon> scanForNearbyPanelEasy() {
+        String beaconNamespaceId = getResources().getString(R.string.beaconNamespaceId);
+
+        return GoogleProximity.getInstance().scanForNearbyBeacon(beaconNamespaceId, 10);
     }
 }
