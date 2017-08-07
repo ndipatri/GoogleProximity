@@ -21,6 +21,8 @@ import io.reactivex.Single;
 
 public class GoogleProximity {
 
+    private static final String TAG = GoogleProximity.class.getSimpleName();
+
     private ObjectGraph graph;
 
     private RxSharedPreferences sharedPreferences;
@@ -33,11 +35,11 @@ public class GoogleProximity {
 
     private static GoogleProximity instance = null;
 
-    public static void initialize(Context context, boolean trustAllConnections) {
+    public static void initialize(final Context context, final boolean trustAllConnections) {
         instance = new GoogleProximity(context, trustAllConnections);
     }
 
-    public GoogleProximity(Context context, boolean trustAllConnections) {
+    public GoogleProximity(final Context context, final boolean trustAllConnections) {
         this.sharedPreferences = RxSharedPreferences.create(PreferenceManager.getDefaultSharedPreferences(context));
 
         graph = ObjectGraph.Initializer.init(context, trustAllConnections);

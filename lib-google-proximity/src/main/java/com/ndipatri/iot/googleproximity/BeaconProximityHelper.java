@@ -27,7 +27,6 @@ import io.reactivex.MaybeEmitter;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class BeaconProximityHelper {
@@ -43,14 +42,15 @@ public class BeaconProximityHelper {
 
     private Context context;
 
-    private final BeaconProximityAPI beaconProximityAPI;
+    private BeaconProximityAPI beaconProximityAPI;
 
     private AttachmentCache attachmentCache = new AttachmentCache();
 
-    public BeaconProximityHelper(final BeaconProximityAPI beaconProximityAPI,
-                                 final Context context) {
-        this.beaconProximityAPI = beaconProximityAPI;
+    public BeaconProximityHelper(final Context context,
+                                 final boolean trustAllConnections) {
         this.context = context;
+
+        this.beaconProximityAPI = new BeaconProximityAPI(trustAllConnections);
 
         namespaceSingle = getOAuthToken()
                 .flatMap(googleAccountToken -> beaconProximityAPI.getNamespace(googleAccountToken))

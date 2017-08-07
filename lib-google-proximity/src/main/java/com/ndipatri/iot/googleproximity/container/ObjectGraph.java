@@ -15,7 +15,7 @@ public interface ObjectGraph {
     void inject(GoogleProximity thingy);
 
     final class Initializer {
-        public static ObjectGraph init(Context context, boolean trustAllConnections) {
+        public static ObjectGraph init(final Context context, final boolean trustAllConnections) {
             return DaggerObjectGraph.builder().gPModule(new GPModule(context, trustAllConnections)).build();
         }
     }

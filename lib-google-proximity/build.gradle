@@ -62,7 +62,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.14'
+    libraryVersion = '1.21'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'
@@ -101,14 +101,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'org.altbeacon:android-beacon-library:2.9.2'
-
-    compile ("com.android.support.test.espresso:espresso-idling-resource:${ESPRESSO_VERSION}") {
-        exclude module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'recyclerview-v7'
-        exclude module: 'design'
-    }
 
     // Dagger dependencies
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"

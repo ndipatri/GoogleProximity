@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ndipatri.iot.googleproximity.BeaconProximityAPI;
 import com.ndipatri.iot.googleproximity.BeaconProximityHelper;
+import com.ndipatri.iot.googleproximity.GoogleProximity;
 import com.ndipatri.iot.googleproximity.utils.BeaconScanHelper;
 
 import javax.inject.Singleton;
@@ -17,21 +18,19 @@ public class GPModule {
     private Context context = null;
     private boolean trustAllConnections;
 
-    public GPModule(Context context, boolean trustAllConnections) {
+    public GPModule(final Context context, final boolean trustAllConnections) {
         this.context = context;
         this.trustAllConnections = trustAllConnections;
     }
 
     @Provides
     @Singleton
-    BeaconProximityAPI provideProximityBeaconProvider() {
-        return new BeaconProximityAPI(trustAllConnections);
-    }
-
-    @Provides
-    @Singleton
-    BeaconProximityHelper provideProximityBeaconHelper(BeaconProximityAPI beaconProximityAPI) {
-        return new BeaconProximityHelper(beaconProximityAPI, context);
+    BeaconProximityHelper provideProximityBeaconHelper() {
+        // NOTE: This helper currently does not need IdlingResource
+        // as all of its background processing is done using RxJava
+        // and we assume these schedulers can be synchronized with Espresso
+        // without IdlingResource
+        return new BeaconProximityHelper(context, trustAllConnections);
     }
 
     @Provides

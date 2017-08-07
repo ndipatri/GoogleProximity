@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
-import android.support.test.espresso.IdlingResource;
 import android.util.Log;
 
 import com.google.common.primitives.Bytes;
@@ -42,20 +40,11 @@ public class BeaconScanHelper {
 
     private BeaconManager beaconManager;
     private Region scanRegion;
-    private BeaconScanIdlingResource idlingResource;
 
     private Context context;
 
-    public BeaconScanHelper (Context context)  {
+    public BeaconScanHelper (final Context context)  {
         this.context = context;
-    }
-
-    public IdlingResource getIdlingResource() {
-        if (null == idlingResource) {
-            idlingResource = new BeaconScanIdlingResource();
-        }
-
-        return idlingResource;
     }
 
     // Beacon scanning starts upon subscription using 'scanForNearbyBeacon(), the client
@@ -83,7 +72,6 @@ public class BeaconScanHelper {
             }
 
             isScanning = true;
-            updateIdlingResource();
         }
 
         Observable<Beacon> observable = scanForRegionSubject.doOnError(throwable -> {
@@ -122,8 +110,6 @@ public class BeaconScanHelper {
             scanForRegionSubject.onComplete();
 
             isScanning = false;
-
-            updateIdlingResource();
         }
     }
 
@@ -159,12 +145,6 @@ public class BeaconScanHelper {
             beaconManager.startMonitoringBeaconsInRegion(scanRegion);
         } catch (RemoteException e) {
             Log.e(TAG, "BLE scan service not yet bound.", e);
-        }
-    }
-
-    private void updateIdlingResource() {
-        if (null != idlingResource) {
-            idlingResource.updateIdleState(!isScanning);
         }
     }
 
@@ -269,35 +249,5 @@ public class BeaconScanHelper {
         }
 
         return Bytes.concat(namespaceBytes, instanceBytes);
-    }
-
-    private class BeaconScanIdlingResource implements IdlingResource {
-
-        @Nullable
-        private volatile ResourceCallback resourceCallback;
-
-        private boolean isIdle;
-
-        @Override
-        public String getName() {
-            return this.getClass().getName();
-        }
-
-        @Override
-        public boolean isIdleNow() {
-            return isIdle;
-        }
-
-        @Override
-        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-            this.resourceCallback = resourceCallback;
-        }
-
-        public void updateIdleState(boolean isIdle) {
-            this.isIdle = isIdle;
-            if (isIdle && null != resourceCallback) {
-                resourceCallback.onTransitionToIdle();
-            }
-        }
     }
 }
