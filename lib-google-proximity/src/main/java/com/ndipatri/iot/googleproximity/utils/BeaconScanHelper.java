@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.google.common.base.Optional;
 import com.google.common.primitives.Bytes;
 
 import org.altbeacon.beacon.Beacon;
@@ -49,11 +50,11 @@ public class BeaconScanHelper {
 
     // Beacon scanning starts upon subscription using 'scanForNearbyBeacon(), the client
     // is responsible for stopping scanning, however, using 'stopBeaconScanning()'
-    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId) {
+    public Observable<BeaconUpdate> scanForNearbyBeacon(String beaconNamespaceId) {
         return scanForNearbyBeacon(beaconNamespaceId, -1);
     }
-    private Subject<Beacon> scanForRegionSubject;
-    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
+    private Subject<BeaconUpdate> scanForRegionSubject;
+    public Observable<BeaconUpdate> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
         Log.d(TAG, "Starting AltBeacon discovery...");
 
         scanForRegionSubject = PublishSubject.create();
@@ -74,8 +75,9 @@ public class BeaconScanHelper {
             isScanning = true;
         }
 
-        Observable<Beacon> observable = scanForRegionSubject.doOnError(throwable -> {
+        Observable<BeaconUpdate> observable = scanForRegionSubject.doOnError(throwable -> {
             Log.e(TAG, "Exception while scanning for beacons. Forcing stop.", throwable);
+
             stopBeaconScanning();
         });
 
@@ -89,6 +91,26 @@ public class BeaconScanHelper {
         }
 
         return observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * A BeaconUpdate without an associated Beacon
+     * indicates that the region has been exited.
+     */
+    public static class BeaconUpdate {
+        private Optional<Beacon> beaconOptional;
+
+        public BeaconUpdate() {
+            this.beaconOptional = Optional.absent();
+        }
+
+        public BeaconUpdate(Beacon beacon) {
+            this.beaconOptional = Optional.of(beacon);
+        }
+
+        public Optional<Beacon> getBeacon() {
+            return beaconOptional;
+        }
     }
 
     public void stopBeaconScanning() {
@@ -187,7 +209,6 @@ public class BeaconScanHelper {
 
         @Override
         public void didExitRegion(Region region) {
-            Log.d(TAG, "Region exited= '" + region + "'.");
             regionExited(region);
         }
 
@@ -202,6 +223,7 @@ public class BeaconScanHelper {
 
         protected void regionEntered(Region region) {
             try {
+                Log.d(TAG, "Region entered = '" + region + "'.");
                 beaconManager.addRangeNotifier(rangeNotifier);
                 beaconManager.startRangingBeaconsInRegion(region);
             } catch (RemoteException e) {
@@ -211,7 +233,10 @@ public class BeaconScanHelper {
 
         protected void regionExited(Region region) {
             try {
+                Log.d(TAG, "Region exited= '" + region + "'.");
                 beaconManager.stopRangingBeaconsInRegion(region);
+
+                scanForRegionSubject.onNext(new BeaconUpdate());
             } catch (RemoteException e) {
                 Log.e(TAG, "Unable to stop ranging.", e);
             }
@@ -223,7 +248,7 @@ public class BeaconScanHelper {
         Log.d(TAG, "Ranging update.  Nearby Beacons='" + nearbyBeacons + "', Region='" + region + "'.");
 
         for (Beacon nearbyBeacon : nearbyBeacons) {
-            scanForRegionSubject.onNext(nearbyBeacon);
+            scanForRegionSubject.onNext(new BeaconUpdate(nearbyBeacon));
         }
     };
 

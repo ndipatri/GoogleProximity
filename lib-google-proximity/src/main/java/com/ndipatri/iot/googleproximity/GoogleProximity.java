@@ -97,11 +97,11 @@ public class GoogleProximity {
         return beaconProximityHelper.getOAuthToken(selectedGoogleAccount);
     }
 
-    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId) {
+    public Observable<BeaconScanHelper.BeaconUpdate> scanForNearbyBeacon(String beaconNamespaceId) {
         return beaconScanHelper.scanForNearbyBeacon(beaconNamespaceId);
     }
 
-    public Observable<Beacon> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
+    public Observable<BeaconScanHelper.BeaconUpdate> scanForNearbyBeacon(String beaconNamespaceId, int timeoutSeconds) {
         return beaconScanHelper.scanForNearbyBeacon(beaconNamespaceId, timeoutSeconds);
     }
 

@@ -165,7 +165,9 @@ public class BeaconProximityHelper {
 
                 if (null == oauthToken) {
                     Log.e(TAG, "Retrieved null OAuth token.");
-                    subscriber.onError(new InvalidParameterException());
+                    if (!subscriber.isDisposed()) {
+                        subscriber.onError(new InvalidParameterException());
+                    }
                 } else {
                     Log.e(TAG, "Retrieved OAuth token '" + oauthToken + "'.");
                     subscriber.onSuccess(oauthToken);
@@ -173,7 +175,9 @@ public class BeaconProximityHelper {
             } catch (Exception ex) {
                 Log.e(TAG, "Exception retrieving OAuth token.", ex);
 
-                subscriber.onError(ex);
+                if (!subscriber.isDisposed()) {
+                    subscriber.onError(ex);
+                }
             }
         })
 
@@ -213,7 +217,9 @@ public class BeaconProximityHelper {
                         attachmentInfo.data = Base64.encodeToString(beaconAttachmentBytes, Base64.NO_WRAP);
                     } catch (IOException e) {
                         Log.e(TAG, "Unable to serialize BeaconAttachment.", e);
-                        subscriber.onError(e);
+                        if (!subscriber.isDisposed()) {
+                            subscriber.onError(e);
+                        }
                     }
 
                     Log.d(TAG, "Rendered beacon attachment '" + attachmentInfo + "'.");

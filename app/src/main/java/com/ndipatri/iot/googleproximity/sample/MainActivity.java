@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ndipatri.iot.googleproximity.GoogleProximity;
 import com.ndipatri.iot.googleproximity.activities.RequirementsActivity;
+import com.ndipatri.iot.googleproximity.utils.BeaconScanHelper;
 
 import org.altbeacon.beacon.Beacon;
 
@@ -28,14 +29,14 @@ public class MainActivity extends RequirementsActivity {
 
         // NJD TODO - need to use this class to test the library and write tests.. duh!
 
-        scanForNearbyPanelEasy().subscribe(new Observer<Beacon>() {
+        scanForNearbyPanelEasy().subscribe(new Observer<BeaconScanHelper.BeaconUpdate>() {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.d(TAG, "onSubscribe()");
             }
 
             @Override
-            public void onNext(Beacon beacon) {
+            public void onNext(BeaconScanHelper.BeaconUpdate beacon) {
                 Log.d(TAG, "onNext(): '" + beacon + "'");
             }
 
@@ -75,7 +76,7 @@ public class MainActivity extends RequirementsActivity {
          **/
     }
 
-    public Observable<Beacon> scanForNearbyPanelEasy() {
+    public Observable<BeaconScanHelper.BeaconUpdate> scanForNearbyPanelEasy() {
         String beaconNamespaceId = getResources().getString(R.string.beaconNamespaceId);
 
         return GoogleProximity.getInstance().scanForNearbyBeacon(beaconNamespaceId, 10);

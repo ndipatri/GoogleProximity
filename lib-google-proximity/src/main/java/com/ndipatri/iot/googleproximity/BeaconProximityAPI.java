@@ -123,11 +123,15 @@ public class BeaconProximityAPI {
                         } catch (InvalidClassException | ClassNotFoundException e) {
                             Log.e(TAG, "Exception while fetching attachments (corruption)", e);
                             // This means the attachment is dead to us, so delete it...
-                            subscriber.onError(new CorruptAttachmentException());
+                            if (!subscriber.isDisposed()) {
+                                subscriber.onError(new CorruptAttachmentException());
+                            }
                         } catch (IOException e) {
                             Log.e(TAG, "Exception while fetching attachments", e);
 
-                            subscriber.onError(e);
+                            if (!subscriber.isDisposed()) {
+                                subscriber.onError(e);
+                            }
                         }
                     } else {
                         subscriber.onComplete();

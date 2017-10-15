@@ -62,7 +62,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.22'
+    libraryVersion = '1.25'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'
