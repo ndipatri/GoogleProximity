@@ -3,6 +3,8 @@ package com.ndipatri.iot.googleproximity.activities;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -11,12 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.cantrowitz.rxbroadcast.RxBroadcast;
 import com.ndipatri.iot.googleproximity.fragments.EnableBluetoothDialogFragment;
 import com.ndipatri.iot.googleproximity.fragments.GrantFineLocationAccessDialogFragment;
 import com.ndipatri.iot.googleproximity.utils.BluetoothHelper;
-
-import io.reactivex.disposables.Disposable;
 
 public class RequirementsActivity extends AppCompatActivity {
 
@@ -24,8 +23,6 @@ public class RequirementsActivity extends AppCompatActivity {
 
     protected EnableBluetoothDialogFragment enableBluetoothDialogFragment;
     protected GrantFineLocationAccessDialogFragment grantFineLocationAccessDialogFragment;
-
-    private Disposable bluetoothStateChangeDisposable;
 
     @Override
     protected void onResume() {
@@ -42,9 +39,7 @@ public class RequirementsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if (null != bluetoothStateChangeDisposable) {
-            bluetoothStateChangeDisposable.dispose();
-        }
+        unregisterReceiver(bluetoothStateChangeReceiver);
     }
 
     protected BluetoothHelper getBluetoothHelper() {
@@ -117,16 +112,21 @@ public class RequirementsActivity extends AppCompatActivity {
         }
     }
 
-    private Disposable registerForBluetoothStateChangeBroadcast() {
+    private void registerForBluetoothStateChangeBroadcast() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
 
-        return RxBroadcast.fromBroadcast(this, filter).subscribe(intent -> {
+        this.registerReceiver(bluetoothStateChangeReceiver, filter);
+    }
+
+    private BroadcastReceiver bluetoothStateChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             if (null != enableBluetoothDialogFragment) {
                 beginUserPermissionCheck();
             }
-        });
-    }
+        }
+    };
 
     /**
      * Override to stop any background services that are not necessary now.
@@ -139,6 +139,6 @@ public class RequirementsActivity extends AppCompatActivity {
      * Override to start any background services...
      */
     protected void successfullyFulfilledRequirements() {
-        bluetoothStateChangeDisposable = registerForBluetoothStateChangeBroadcast();
+        registerForBluetoothStateChangeBroadcast();
     }
 }

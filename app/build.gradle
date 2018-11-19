@@ -1,10 +1,6 @@
 // Android Gradle Plugin
 apply plugin: 'com.android.application'
 
-// In support of Dagger
-apply plugin: 'android-apt'
-
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
 final DAGGER_VERSION = '2.7';
@@ -89,60 +85,60 @@ android {
 }
 
 dependencies {
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
-    compile 'commons-codec:commons-codec:1.10'
-    compile 'joda-time:joda-time:2.9.4'
-    compile 'org.joda:joda-convert:1.7'
-    compile 'com.squareup.okio:okio:1.4.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+    implementation 'commons-codec:commons-codec:1.10'
+    implementation 'joda-time:joda-time:2.9.4'
+    implementation 'org.joda:joda-convert:1.7'
+    implementation 'com.squareup.okio:okio:1.4.0'
 
-    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
-    compile('io.reactivex.rxjava2:rxandroid:2.0.1'){
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.5'
+    implementation('io.reactivex.rxjava2:rxandroid:2.0.1'){
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
     }
 
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
 
-    compile "com.squareup.retrofit2:retrofit:2.2.0"
-    compile "com.squareup.retrofit2:converter-gson:2.2.0"
-    compile "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
+    implementation "com.squareup.retrofit2:retrofit:2.2.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.2.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
 
-    compile 'com.cantrowitz:rxbroadcast:2.0.0'
-    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
+    implementation 'com.cantrowitz:rxbroadcast:2.0.0'
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
 
     // support libraries
     // these provide backward compatability for older versions of android
-    compile 'com.android.support:support-compat:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:appcompat-v7:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:support-core-utils:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:support-core-ui:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:support-media-compat:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:support-fragment:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:recyclerview-v7:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:support-annotations:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:design:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:percent:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:cardview-v7:' + rootProject.currentSupportLibVersion;
-    compile 'com.android.support:recyclerview-v7:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-compat:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:appcompat-v7:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-core-utils:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-core-ui:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-media-compat:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-fragment:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:recyclerview-v7:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:support-annotations:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:design:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:percent:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:cardview-v7:' + rootProject.currentSupportLibVersion;
+    implementation 'com.android.support:recyclerview-v7:' + rootProject.currentSupportLibVersion;
 
-    compile 'org.altbeacon:android-beacon-library:2.9.2'
+    implementation 'org.altbeacon:android-beacon-library:2.9.2'
 
-    compile 'org.slf4j:slf4j-android:1.6.1-RC1'
-    compile 'commons-io:commons-io:2.4'
+    implementation 'org.slf4j:slf4j-android:1.6.1-RC1'
+    implementation 'commons-io:commons-io:2.4'
 
     //  need this for latest Nearby work...
-    compile 'com.google.android.gms:play-services:10.2.1'
+    implementation 'com.google.android.gms:play-services:10.2.1'
 
     // this works with Play Services version on Nexus5x emulator
-    compile ('com.google.api-client:google-api-client:1.20.0') {
+    implementation ('com.google.api-client:google-api-client:1.20.0') {
         exclude group: 'com.google.guava'
         exclude group: 'org.apache.httpcomponents'
     }
 
     // Dagger dependencies
-    compile "com.google.dagger:dagger:${DAGGER_VERSION}"
-    apt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-    provided 'javax.annotation:jsr250-api:1.0'
+    implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
-    compile project(path: ':lib-google-proximity')
+    implementation project(path: ':lib-google-proximity')
 }
