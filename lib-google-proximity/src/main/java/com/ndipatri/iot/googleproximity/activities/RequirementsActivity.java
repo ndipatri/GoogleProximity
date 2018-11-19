@@ -34,6 +34,10 @@ public class RequirementsActivity extends AppCompatActivity {
         beginUserPermissionCheck();
     }
 
+    protected boolean shouldCheckBluetoothPermissions() {
+        return true;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -78,16 +82,20 @@ public class RequirementsActivity extends AppCompatActivity {
     }
 
     private void continueWithUserPermissionCheck() {
-        if (!getBluetoothHelper().isBluetoothSupported()) {
-            Toast.makeText(this, "This application cannot run without Bluetooth support!", Toast.LENGTH_SHORT).show();
-            failedToFulfillRequirements();
-        } else {
-            if (!getBluetoothHelper().isBluetoothEnabled()) {
-                enableBluetoothDialogFragment = new EnableBluetoothDialogFragment();
-                enableBluetoothDialogFragment.show(getSupportFragmentManager().beginTransaction(), "enable bluetooth dialog");
+        if (shouldCheckBluetoothPermissions()) {
+            if (!getBluetoothHelper().isBluetoothSupported()) {
+                Toast.makeText(this, "This application cannot run without Bluetooth support!", Toast.LENGTH_SHORT).show();
+                failedToFulfillRequirements();
             } else {
-                successfullyFulfilledRequirements();
+                if (!getBluetoothHelper().isBluetoothEnabled()) {
+                    enableBluetoothDialogFragment = new EnableBluetoothDialogFragment();
+                    enableBluetoothDialogFragment.show(getSupportFragmentManager().beginTransaction(), "enable bluetooth dialog");
+                } else {
+                    successfullyFulfilledRequirements();
+                }
             }
+        } else {
+            successfullyFulfilledRequirements();
         }
     }
 

@@ -233,10 +233,12 @@ public class BeaconScanHelper {
 
         protected void regionExited(Region region) {
             try {
-                Log.d(TAG, "Region exited= '" + region + "'.");
-                beaconManager.stopRangingBeaconsInRegion(region);
+                if (!beaconManager.getRangingNotifiers().isEmpty()) {
+                    Log.d(TAG, "Region exited= '" + region + "'.");
+                    beaconManager.stopRangingBeaconsInRegion(region);
 
-                scanForRegionSubject.onNext(new BeaconUpdate());
+                    scanForRegionSubject.onNext(new BeaconUpdate());
+                }
             } catch (RemoteException e) {
                 Log.e(TAG, "Unable to stop ranging.", e);
             }
