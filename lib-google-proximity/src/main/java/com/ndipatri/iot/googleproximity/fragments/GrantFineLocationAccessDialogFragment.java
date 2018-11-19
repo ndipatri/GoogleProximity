@@ -4,12 +4,13 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import com.ndipatri.iot.googleproximity.R;
+
+import androidx.fragment.app.DialogFragment;
 
 public class GrantFineLocationAccessDialogFragment extends DialogFragment {
 

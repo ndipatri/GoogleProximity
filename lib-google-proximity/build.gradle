@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-final DAGGER_VERSION = '2.7';
+final DAGGER_VERSION = '2.12';
 
 android {
 
@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -51,7 +51,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.29'
+    libraryVersion = '1.30'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'

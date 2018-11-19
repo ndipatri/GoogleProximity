@@ -9,13 +9,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.ndipatri.iot.googleproximity.fragments.EnableBluetoothDialogFragment;
 import com.ndipatri.iot.googleproximity.fragments.GrantFineLocationAccessDialogFragment;
 import com.ndipatri.iot.googleproximity.utils.BluetoothHelper;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RequirementsActivity extends AppCompatActivity {
 
@@ -52,6 +53,7 @@ public class RequirementsActivity extends AppCompatActivity {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 grantFineLocationAccessDialogFragment = new GrantFineLocationAccessDialogFragment();
                 grantFineLocationAccessDialogFragment.show(getSupportFragmentManager().beginTransaction(), "grant location access dialog");
+
             } else {
                 continueWithUserPermissionCheck();
             }

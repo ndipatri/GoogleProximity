@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'realm-android'
 
-final DAGGER_VERSION = '2.7';
+final DAGGER_VERSION = '2.12';
 
 android {
 
@@ -32,7 +32,7 @@ android {
         minSdkVersion rootProject.ext.get("currentMinSdkVersion")
         targetSdkVersion rootProject.ext.get("currentTargetSdkVersion")
         applicationId "com.ndipatri.iot.googleproximity.sample"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         resValue("string", "beaconNamespaceId", beaconNamespaceId)
     }

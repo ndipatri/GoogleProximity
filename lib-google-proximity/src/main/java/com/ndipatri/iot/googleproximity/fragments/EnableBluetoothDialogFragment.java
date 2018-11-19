@@ -6,12 +6,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import com.ndipatri.iot.googleproximity.R;
+
+import androidx.fragment.app.DialogFragment;
 
 public class EnableBluetoothDialogFragment extends DialogFragment {
 
