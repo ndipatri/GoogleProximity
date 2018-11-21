@@ -6,7 +6,6 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.ndipatri.iot.googleproximity.activities.AuthenticationActivity;
 import com.ndipatri.iot.googleproximity.models.api.AttachmentInfo;
 import com.ndipatri.iot.googleproximity.models.api.Beacon;
@@ -28,6 +27,7 @@ import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 public class BeaconProximityHelper {
 

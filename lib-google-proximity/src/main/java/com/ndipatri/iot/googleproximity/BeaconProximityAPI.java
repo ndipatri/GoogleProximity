@@ -18,7 +18,6 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.google.common.collect.ImmutableList;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.ndipatri.iot.googleproximity.models.api.AdvertisedId;
 import com.ndipatri.iot.googleproximity.models.api.AttachmentInfo;
 import com.ndipatri.iot.googleproximity.models.api.BatchDeleteResponse;
@@ -46,6 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

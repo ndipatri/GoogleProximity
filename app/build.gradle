@@ -91,17 +91,17 @@ dependencies {
     implementation 'org.joda:joda-convert:1.7'
     implementation 'com.squareup.okio:okio:1.4.0'
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.0.5'
-    implementation('io.reactivex.rxjava2:rxandroid:2.0.1'){
-        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
-    }
-
-    implementation 'com.google.code.gson:gson:2.4'
-    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     implementation "com.squareup.retrofit2:retrofit:2.2.0"
     implementation "com.squareup.retrofit2:converter-gson:2.2.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
+
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
+
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0';
 
     implementation 'com.cantrowitz:rxbroadcast:2.0.0'
     implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
@@ -127,7 +127,11 @@ dependencies {
     implementation 'commons-io:commons-io:2.4'
 
     //  need this for latest Nearby work...
-    implementation 'com.google.android.gms:play-services:10.2.1'
+    implementation 'com.google.android.gms:play-services-nearby:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // this works with Play Services version on Nexus5x emulator
     implementation ('com.google.api-client:google-api-client:1.20.0') {
