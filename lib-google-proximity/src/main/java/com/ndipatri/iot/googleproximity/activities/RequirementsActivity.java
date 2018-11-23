@@ -40,7 +40,11 @@ public class RequirementsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        unregisterReceiver(bluetoothStateChangeReceiver);
+        try {
+            unregisterReceiver(bluetoothStateChangeReceiver);
+
+        // ignore error if not already registered
+        } catch (IllegalArgumentException iae) {}
     }
 
     protected BluetoothHelper getBluetoothHelper() {
