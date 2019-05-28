@@ -60,7 +60,7 @@ public class BeaconProximityAPI {
 
     private static final String ENDPOINT = "https://proximitybeacon.googleapis.com/v1beta1/";
 
-    // not this is the 'browser key' from the Google Dev Console, NOT
+    // note this is the 'browser key' from the Google Dev Console, NOT
     // the 'android key'.. many bothan spies died obtaining this
     // information.
     String API_KEY = "AIzaSyBRQezTd3GBi-az6US93nE_DfQj6kUkmvc";

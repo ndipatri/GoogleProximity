@@ -115,4 +115,6 @@
 #-keep class android.support.test.espresso.** { *; }
 #-keepclassmembers class android.support.test.espresso.** { public *; }
 
-
+# keep the class and specified members from being removed or renamed
+-keep class com.google.android.gms.auth.GoogleAuthUtil { *; }
+-keepclassmembers class com.google.android.gms.auth.GoogleAuthUtil { public *; }
