@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 
 final DAGGER_VERSION = '2.12';
 
@@ -93,8 +97,8 @@ dependencies {
 
     // Dagger dependencies
     implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
-    provided 'javax.annotation:jsr250-api:1.0'
+    kapt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
     // support libraries
     // these provide backward compatability for older versions of android
@@ -108,4 +112,9 @@ dependencies {
     // Place it at the end of the file
     apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
     apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
+    compile "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

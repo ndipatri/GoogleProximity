@@ -6,5 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.ndipatri.iot.googleproximity.sample.MainActivity">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You've been authorized for FINE_LOCATION and Bluetooth has been Enabled!"/>
+
 </LinearLayout>
 

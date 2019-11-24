@@ -79,6 +79,6 @@ public class MainActivity extends RequirementsActivity {
     public Observable<BeaconScanHelper.BeaconUpdate> scanForNearbyPanelEasy() {
         String beaconNamespaceId = getResources().getString(R.string.beaconNamespaceId);
 
-        return GoogleProximity.getInstance().scanForNearbyBeacon(beaconNamespaceId, 10);
+        return GoogleProximity.Companion.getInstance().scanForNearbyBeacon(beaconNamespaceId, 10);
     }
 }

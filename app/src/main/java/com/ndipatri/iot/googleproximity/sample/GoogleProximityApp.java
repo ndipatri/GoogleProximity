@@ -25,6 +25,6 @@ public class GoogleProximityApp extends Application {
 
         Log.d(TAG, "Starting app ...");
 
-        GoogleProximity.initialize(this, true);
+        GoogleProximity.Companion.initialize(this, true);
     }
 }
