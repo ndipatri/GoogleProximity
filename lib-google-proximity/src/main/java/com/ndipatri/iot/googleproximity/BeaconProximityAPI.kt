@@ -107,7 +107,7 @@ class BeaconProximityAPI(trustAllConnections: Boolean) {
      * @throws CorruptAttachmentException if the retrieved attachment bytes can not be marshalled into
      * a BeaconAttachment. (e.g. change in code)
      */
-    fun getBeaconAttachment(advertisedId: AdvertisedId): Maybe<Array<String>> {
+    fun getBeaconAttachment(advertisedId: AdvertisedId): Maybe<Array<String?>> {
 
         val getForObservedRequest = GetForObservedRequest()
         getForObservedRequest.namespacedTypes = ImmutableList.of("*")
@@ -118,7 +118,7 @@ class BeaconProximityAPI(trustAllConnections: Boolean) {
 
         return service.getForObserved(url, getForObservedRequest)
                 .flatMapMaybe { getForObservedResponse ->
-                    Maybe.create { subscriber: MaybeEmitter<Array<String>> ->
+                    Maybe.create { subscriber: MaybeEmitter<Array<String?>> ->
 
                         if (getForObservedResponse.beacons != null &&
                                 getForObservedResponse.beacons!!.size > 0 &&
@@ -129,7 +129,7 @@ class BeaconProximityAPI(trustAllConnections: Boolean) {
                                 val byteArrayInputStream = ByteArrayInputStream(Base64.decode(getForObservedResponse.beacons!![0].attachments!![0].data, Base64.DEFAULT))
                                 val objectIn = ObjectInputStream(byteArrayInputStream)
 
-                                val payload = objectIn.readObject() as Array<String>
+                                val payload = objectIn.readObject() as Array<String?>
 
                                 subscriber.onSuccess(payload)
                             } catch (e: InvalidClassException) {

@@ -55,7 +55,7 @@ ext {
     gitUrl = 'https://github.com/ndipatri/GoogleProximity.git'
     githubRepository= 'ndipatri/GoogleProximity'
 
-    libraryVersion = '1.34'
+    libraryVersion = '1.39'
 
     developerId = 'ndipatri'
     developerName = 'Nicholas DiPatri'
@@ -112,7 +112,7 @@ dependencies {
     // Place it at the end of the file
     apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
     apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
-    compile "androidx.core:core-ktx:+"
+    implementation 'androidx.core:core-ktx:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

@@ -53,21 +53,21 @@ class GoogleProximity(context: Context, trustAllConnections: Boolean) {
         return !Strings.isNullOrEmpty(googleAccountForOAuth.get())
     }
 
-    fun retrieveAttachment(beacon: Beacon): Maybe<Array<String>> {
+    fun retrieveAttachment(beacon: Beacon): Maybe<Array<String?>> {
         return retrieveAttachment(beaconScanHelper!!.getAdvertiseId(beacon))
     }
 
-    fun retrieveAttachment(advertiseId: ByteArray): Maybe<Array<String>> {
+    fun retrieveAttachment(advertiseId: ByteArray): Maybe<Array<String?>> {
         return beaconProximityHelper!!.retrieveAttachment(advertiseId)
     }
 
     fun updateBeacon(beacon: Beacon,
-                     attachment: Array<String>): Completable {
+                     attachment: Array<String?>): Completable {
         return updateBeacon(beaconScanHelper!!.getAdvertiseId(beacon), attachment)
     }
 
     fun updateBeacon(advertiseId: ByteArray,
-                     attachment: Array<String>): Completable {
+                     attachment: Array<String?>): Completable {
         return beaconProximityHelper!!
                 .createAttachment(advertiseId, attachment)
     }

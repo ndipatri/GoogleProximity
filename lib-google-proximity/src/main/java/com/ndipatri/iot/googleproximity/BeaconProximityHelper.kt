@@ -81,7 +81,7 @@ class BeaconProximityHelper(val context: Context,
      *
      * @param advertiseId
      */
-    fun retrieveAttachment(advertiseId: ByteArray): Maybe<Array<String>> {
+    fun retrieveAttachment(advertiseId: ByteArray): Maybe<Array<String?>> {
 
         val apiBeacon = Beacon(advertiseId)
 
@@ -96,7 +96,7 @@ class BeaconProximityHelper(val context: Context,
 
             return beaconProximityAPI.getBeaconAttachment(apiBeacon.advertisedId)
                     .flatMap { attachment ->
-                        Maybe.create { subscriber: MaybeEmitter<Array<String>> ->
+                        Maybe.create { subscriber: MaybeEmitter<Array<String?>> ->
 
                             attachmentCache.cacheAttachment(apiBeacon, attachment)
 
@@ -113,7 +113,7 @@ class BeaconProximityHelper(val context: Context,
 
     // Please be sure the passed Beacon is a DTO (detached) not DAO (attached to Realm)
     fun createAttachment(advertiseId: ByteArray,
-                         attachment: Array<String>): Completable {
+                         attachment: Array<String?>): Completable {
 
         val apiBeacon = Beacon(advertiseId)
 
@@ -191,7 +191,7 @@ class BeaconProximityHelper(val context: Context,
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
-    private fun renderAttachmentInfo(attachment: Array<String>): Single<AttachmentInfo> {
+    private fun renderAttachmentInfo(attachment: Array<String?>): Single<AttachmentInfo> {
 
         return namespaceSingle
                 .flatMap { namespace ->
@@ -282,7 +282,7 @@ class BeaconProximityHelper(val context: Context,
 
         private val attachmentCache = HashMap<String, TimedAttachment>()
 
-        private class TimedAttachment(internal var attachment: Array<String>) {
+        private class TimedAttachment(internal var attachment: Array<String?>) {
             internal var timestamp: Long? = null
 
             init {
@@ -290,15 +290,15 @@ class BeaconProximityHelper(val context: Context,
             }
         }
 
-        fun cacheAttachment(apiBeacon: Beacon, attachment: Array<String>) {
+        fun cacheAttachment(apiBeacon: Beacon, attachment: Array<String?>) {
             attachmentCache[generateKey(apiBeacon)] = TimedAttachment(attachment)
         }
 
-        fun getAttachment(apiBeacon: Beacon): Array<String>? {
+        fun getAttachment(apiBeacon: Beacon): Array<String?>? {
 
             val beaconKey = generateKey(apiBeacon)
 
-            var cachedAttachment: Array<String>? = null
+            var cachedAttachment: Array<String?>? = null
 
             val timedAttachment = attachmentCache[beaconKey]
             if (null != timedAttachment) {

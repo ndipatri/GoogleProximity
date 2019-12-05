@@ -40,7 +40,7 @@ open class RequirementsActivity : AppCompatActivity() {
         beginUserPermissionCheck()
     }
 
-    protected fun shouldCheckBluetoothPermissions(): Boolean {
+    open fun shouldCheckBluetoothPermissions(): Boolean {
         return true
     }
 
@@ -131,14 +131,14 @@ open class RequirementsActivity : AppCompatActivity() {
     /**
      * Override to stop any background services that are not necessary now.
      */
-    protected fun failedToFulfillRequirements() {
+    open fun failedToFulfillRequirements() {
         finish()
     }
 
     /**
      * Override to start any background services...
      */
-    protected fun successfullyFulfilledRequirements() {
+    open fun successfullyFulfilledRequirements() {
         registerForBluetoothStateChangeBroadcast()
     }
 

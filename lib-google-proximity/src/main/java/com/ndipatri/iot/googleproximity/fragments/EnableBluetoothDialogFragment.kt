@@ -3,16 +3,13 @@ package com.ndipatri.iot.googleproximity.fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.TextView
-
-import com.ndipatri.iot.googleproximity.R
-
 import androidx.fragment.app.DialogFragment
+import com.ndipatri.iot.googleproximity.R
 
 class EnableBluetoothDialogFragment : DialogFragment() {
 
